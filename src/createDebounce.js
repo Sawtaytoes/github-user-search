@@ -10,15 +10,10 @@ const createDebounce = () => {
 
 		timeoutId = (
 			setTimeout(
-				() => {
-					console.log('timeoutId 1', timeoutId)
-					callback()
-				},
+				callback,
 				250,
 			)
 		)
-
-		console.log('timeoutId 2', timeoutId)
 	}
 }
 

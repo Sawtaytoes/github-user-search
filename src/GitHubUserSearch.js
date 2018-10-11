@@ -32,7 +32,7 @@ const propTypes = {
 	searchQuery: PropTypes.string,
 }
 
-const GitHubUser = ({ searchQuery }) => (
+const GitHubUserSearch = ({ searchQuery }) => (
 	searchQuery
 	? (
 		<Query
@@ -49,7 +49,7 @@ const GitHubUser = ({ searchQuery }) => (
 	: null
 )
 
-GitHubUser
+GitHubUserSearch
 .propTypes = propTypes
 
-export default GitHubUser
+export default GitHubUserSearch

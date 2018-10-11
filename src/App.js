@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './App.css'
-import GitHubUser from './GitHubUser'
+import GitHubUserSearch from './GitHubUserSearch'
 import InputListener from './InputListener'
 
 const App = () => (
@@ -9,7 +9,7 @@ const App = () => (
 		<header className="App-header">
 			<InputListener>
 				{({ value }) => (
-					<GitHubUser
+					<GitHubUserSearch
 						searchQuery={value}
 					/>
 				)}

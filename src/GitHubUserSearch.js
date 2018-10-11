@@ -32,7 +32,9 @@ const propTypes = {
 	searchQuery: PropTypes.string,
 }
 
-const GitHubUserSearch = ({ searchQuery }) => (
+const GitHubUserSearch = ({
+	searchQuery,
+}) => (
 	searchQuery
 	? (
 		<Query

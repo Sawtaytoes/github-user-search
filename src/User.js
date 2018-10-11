@@ -21,7 +21,7 @@ const propTypes = {
 		.isRequired
 	),
 	login: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired,
+	name: PropTypes.string,
 	starredRepositories: (
 		PropTypes
 		.shape({
@@ -29,7 +29,8 @@ const propTypes = {
 		})
 		.isRequired
 	),
-	websiteUrl: PropTypes.string.isRequired,
+	url: PropTypes.string.isRequired,
+	websiteUrl: PropTypes.string,
 }
 
 const User = ({
@@ -40,34 +41,75 @@ const User = ({
 	login,
 	name,
 	starredRepositories,
+	url,
 	websiteUrl,
 }) => (
 	<div
 		style={{
 			border: '2px solid grey',
-			marginBottom: '30px',
+			height: '100%',
 			padding: '20px',
 		}}
 	>
 		<div>
-			<div
+			<a
+				href={url}
 				style={{
-					fontWeight: 'bold',
-					marginBottom: '10px',
+					color: 'inherit',
+					textDecoration: 'none',
 				}}
 			>
-				{login}
-			</div>
+				<div
+					style={{
+						fontWeight: 'bold',
+						marginBottom: '10px',
+						textDecoration: 'underline',
+					}}
+				>
+					{login}
+				</div>
 
-			<small>
-				{name}
-			</small>
+				{
+					name
+					&& (
+						<small>
+							{name}
+						</small>
+					)
+				}
+
+				<div>
+					<img
+						alt="user avatar"
+						src={avatarUrl}
+						style={{ width: '50%' }}
+					/>
+				</div>
+			</a>
 		</div>
 
 		<div>
-			<a href={websiteUrl}>
-				Go to Website
-			</a>
+			<small
+				dangerouslySetInnerHTML={{
+					__html: bioHTML,
+				}}
+			/>
+		</div>
+
+		<div>
+			{
+				websiteUrl
+				&& (
+					<a
+						href={websiteUrl}
+						style={{
+							color: 'inherit',
+						}}
+					>
+						Go to Website
+					</a>
+				)
+			}
 		</div>
 
 		<div>

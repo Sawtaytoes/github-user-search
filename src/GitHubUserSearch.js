@@ -6,8 +6,14 @@ import { Query } from 'react-apollo'
 import GitHubUserSearchResults from './GitHubUserSearchResults'
 
 const SEARCH_USERS = gql`
-	query SearchUsers($searchQuery: String!) {
+	query SearchUsers(
+		$after: String,
+		$before: String,
+		$searchQuery: String!,
+	) {
 		search(
+			after: $after,
+			before: $before,
 			first: 10,
 			query: $searchQuery,
 			type: USER,
@@ -55,15 +61,21 @@ const GitHubUserSearch = ({
 	searchQuery
 	? (
 		<Query
+			fetchPolicy="cache-and-data"
 			query={SEARCH_USERS}
 			variables={{ searchQuery }}
 		>
-			{({ data, loading }) => (
-				loading
+			{({
+				data,
+				fetchMore,
+				loading: isLoading,
+			}) => (
+				isLoading
 				? 'Loading...'
 				: (
 					<GitHubUserSearchResults
 						data={data}
+						fetchMore={fetchMore}
 					/>
 				)
 			)}

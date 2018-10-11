@@ -2,7 +2,46 @@ import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 
 import Count from './Count'
+import InternalLink from './InternalLink'
+import Paginator from './Paginator'
 import User from './User'
+
+const paginate = ({
+	fetchMore,
+	variables,
+}) => () => (
+	fetchMore({
+		updateQuery: (
+			previousResult,
+			{ fetchMoreResult },
+		) => (
+			fetchMoreResult
+			? {
+				search: ({
+					...(
+						fetchMoreResult
+						.search
+					),
+					pageInfo: {
+						...(
+							fetchMoreResult
+							.search
+							.pageInfo
+						),
+						startCursor: (
+							previousResult
+							.search
+							.pageInfo
+							.startCursor
+						),
+					},
+				}),
+			}
+			: previousResult
+		),
+		variables,
+	})
+)
 
 const propTypes = {
 	data: (
@@ -12,10 +51,12 @@ const propTypes = {
 		})
 		.isRequired
 	),
+	fetchMore: PropTypes.func.isRequired,
 }
 
 const GitHubUserSearchResults = ({
 	data,
+	fetchMore,
 }) => (
 	<Fragment>
 		<Count
@@ -23,10 +64,64 @@ const GitHubUserSearchResults = ({
 			value={data.search.userCount}
 		/>
 
+		<Paginator>
+			<InternalLink
+				canPaginate={
+					data
+					.search
+					.pageInfo
+					.hasPreviousPage
+				}
+				onClick={
+					paginate({
+						fetchMore,
+						variables: {
+							before: (
+								data
+								.search
+								.pageInfo
+								.startCursor
+							),
+						},
+					})
+				}
+			>
+				Prev
+			</InternalLink>
+
+			<InternalLink
+				canPaginate={
+					data
+					.search
+					.pageInfo
+					.hasNextPage
+				}
+				onClick={
+					paginate({
+						fetchMore,
+						variables: {
+							after: (
+								data
+								.search
+								.pageInfo
+								.endCursor
+							),
+						},
+					})
+				}
+			>
+				Next
+			</InternalLink>
+		</Paginator>
+
 		<div
 			style={{
-				display: 'flex',
-				flexWrap: 'wrap',
+				display: 'grid',
+				gridColumnGap: '20px',
+				gridRowGap: '70px',
+				gridTemplateColumns: '1fr 1fr',
+				marginBottom: '40px',
+				padding: '20px',
 			}}
 		>
 			{
@@ -38,19 +133,19 @@ const GitHubUserSearchResults = ({
 				))
 				.map(({
 					databaseId,
-					url,
 					...props
 				}) => (
-					<a
+					<div
 						key={databaseId}
-						href={url}
 						style={{
 							color: 'inherit',
+							height: '100%',
 							textDecoration: 'none',
+							width: '100%',
 						}}
 					>
 						<User {...props} />
-					</a>
+					</div>
 				))
 			}
 		</div>

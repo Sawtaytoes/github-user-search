@@ -3,6 +3,8 @@ import gql from 'graphql-tag'
 import React from 'react'
 import { Query } from 'react-apollo'
 
+import GitHubUserSearchResults from './GitHubUserSearchResults'
+
 const SEARCH_USERS = gql`
 	query SearchUsers($searchQuery: String!) {
 		search(
@@ -13,7 +15,20 @@ const SEARCH_USERS = gql`
 			edges {
 				node {
 					... on User {
+						avatarUrl
+						bioHTML
+						followers {
+							totalCount
+						}
+						following {
+							totalCount
+						}
+						starredRepositories {
+							totalCount
+						}
 						name
+						url
+						websiteUrl
 					}
 				}
 			}
@@ -44,7 +59,11 @@ const GitHubUserSearch = ({
 			{({ data, loading }) => (
 				loading
 				? 'Loading...'
-				: JSON.stringify(data, null, 2)
+				: (
+					<GitHubUserSearchResults
+						data={data}
+					/>
+				)
 			)}
 		</Query>
 	)

@@ -12,12 +12,10 @@ const GitHubUserSearchResults = ({
 	data,
 }) => (
 	<Fragment>
-		<div>
-			<Count
-				name="Number of Users Matching Search"
-				value={data.search.userCount}
-			/>
-		</div>
+		<Count
+			name="Number of Users Matching Search"
+			value={data.search.userCount}
+		/>
 
 		{
 			data

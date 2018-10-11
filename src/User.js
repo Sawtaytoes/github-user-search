@@ -38,24 +38,18 @@ const User = ({
 	websiteUrl,
 }) => (
 	<div className="User">
-		<div>
-			<Count
-				name="Followers"
-				value={followers.totalCount}
-			/>
-		</div>
-		<div>
-			<Count
-				name="Following"
-				value={following.totalCount}
-			/>
-		</div>
-		<div>
-			<Count
-				name="Starred"
-				value={starredRepositories.totalCount}
-			/>
-		</div>
+		<Count
+			name="Followers"
+			value={followers.totalCount}
+		/>
+		<Count
+			name="Following"
+			value={following.totalCount}
+		/>
+		<Count
+			name="Starred"
+			value={starredRepositories.totalCount}
+		/>
 	</div>
 )
 

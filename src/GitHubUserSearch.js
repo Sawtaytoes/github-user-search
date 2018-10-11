@@ -17,6 +17,7 @@ const SEARCH_USERS = gql`
 					... on User {
 						avatarUrl
 						bioHTML
+						databaseId
 						followers {
 							totalCount
 						}

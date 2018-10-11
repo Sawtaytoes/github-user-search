@@ -2,14 +2,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const propTypes = {
-	value: PropTypes.string,
+	name: PropTypes.string,
+	value: PropTypes.number,
 }
 
 const Count = ({
+	name,
 	value,
 }) => (
 	<div className="Count">
-		{value}
+		{name}: {value}
 	</div>
 )
 

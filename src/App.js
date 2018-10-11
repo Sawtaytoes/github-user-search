@@ -9,7 +9,6 @@ const App = () => (
 		<header className="App-header">
 			<InputListener>
 				{({ value }) => (
-					console.log({value})||
 					<GitHubUser
 						searchQuery={value}
 					/>

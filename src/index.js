@@ -1,6 +1,6 @@
 import './index.css'
 import * as serviceWorker from './serviceWorker'
-import App from './App'
+import ReactRoot from './ReactRoot'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -11,7 +11,7 @@ const reactRootElement = (
 
 ReactDOM
 .render(
-	<App />,
+	<ReactRoot />,
 	reactRootElement,
 )
 

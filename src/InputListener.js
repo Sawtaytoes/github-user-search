@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component, createElement, Fragment } from 'react'
 
+import createDebounce from './createDebounce'
+
 const propTypes = {
 	children: PropTypes.func.isRequired,
 }
@@ -8,26 +10,11 @@ const propTypes = {
 class InputListener extends Component {
 	state = { value: '' }
 
-	debounceInput = (
-		callback,
-	) => {
-		clearTimeout(
-			this
-			.timeoutId
-		)
+	constructor(props) {
+		super(props)
 
 		this
-		.timeoutId = (
-			setTimeout(
-				() => {
-					console.log('timeoutId 1', this.timeoutId)
-					callback()
-				},
-				2000,
-			)
-		)
-
-		console.log('timeoutId 2', this.timeoutId)
+		.debounceInput = createDebounce()
 	}
 
 	updateValue = ({

@@ -3,9 +3,13 @@ import gql from 'graphql-tag'
 import React from 'react'
 import { Query } from 'react-apollo'
 
-const FETCH_USER = gql`
-	query UserSearch($searchQuery: String!) {
-		search(query: $searchQuery, first: 10, type: USER) {
+const SEARCH_USERS = gql`
+	query SearchUsers($searchQuery: String!) {
+		search(
+			first: 10,
+			query: $searchQuery,
+			type: USER,
+		) {
 			edges {
 				node {
 					... on User {
@@ -15,9 +19,9 @@ const FETCH_USER = gql`
 			}
 			pageInfo {
 				endCursor
-				startCursor
 				hasNextPage
 				hasPreviousPage
+				startCursor
 			}
 			userCount
 		}
@@ -32,7 +36,7 @@ const GitHubUser = ({ searchQuery }) => (
 	searchQuery
 	? (
 		<Query
-			query={FETCH_USER}
+			query={SEARCH_USERS}
 			variables={{ searchQuery }}
 		>
 			{({ data, loading }) => (

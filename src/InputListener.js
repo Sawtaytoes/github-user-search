@@ -40,7 +40,6 @@ class InputListener extends Component {
 				<input
 					onChange={this.updateValue}
 					type="text"
-					value={value}
 				/>
 
 				{

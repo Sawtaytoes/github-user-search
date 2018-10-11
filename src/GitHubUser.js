@@ -4,8 +4,8 @@ import React from 'react'
 import { Query } from 'react-apollo'
 
 const FETCH_USER = gql`
-	{
-		search(query: "$searchQuery", first: 10, type: USER) {
+	query UserSearch($searchQuery: String!) {
+		search(query: $searchQuery, first: 10, type: USER) {
 			edges {
 				node {
 					... on User {
@@ -25,20 +25,24 @@ const FETCH_USER = gql`
 `
 
 const propTypes = {
-	searchQuery: PropTypes.string.isRequired,
+	searchQuery: PropTypes.string,
 }
 
 const GitHubUser = ({ searchQuery }) => (
-	<Query
-		query={FETCH_USER}
-		variables={{ searchQuery }}
-	>
-		{({ data, loading }) => (
-			loading
-			? 'Loading...'
-			: JSON.stringify(data, null, 2)
-		)}
-	</Query>
+	searchQuery
+	? (
+		<Query
+			query={FETCH_USER}
+			variables={{ searchQuery }}
+		>
+			{({ data, loading }) => (
+				loading
+				? 'Loading...'
+				: JSON.stringify(data, null, 2)
+			)}
+		</Query>
+	)
+	: null
 )
 
 GitHubUser

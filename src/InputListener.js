@@ -8,7 +8,7 @@ const propTypes = {
 }
 
 class InputListener extends Component {
-	state = { value: 'kevin' }
+	state = { value: '' }
 
 	constructor(props) {
 		super(props)

@@ -1,14 +1,20 @@
 import React from 'react'
 
 import './App.css'
-import GithubUser from './GithubUser'
+import GitHubUser from './GitHubUser'
+import InputListener from './InputListener'
 
 const App = () => (
 	<div className="App">
 		<header className="App-header">
-			<input type="text" />
-
-			<GithubUser />
+			<InputListener>
+				{({ value }) => (
+					console.log({value})||
+					<GitHubUser
+						searchQuery={value}
+					/>
+				)}
+			</InputListener>
 		</header>
 	</div>
 )

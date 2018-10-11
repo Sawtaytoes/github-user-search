@@ -5,7 +5,13 @@ import Count from './Count'
 import User from './User'
 
 const propTypes = {
-	data: PropTypes.object,
+	data: (
+		PropTypes
+		.shape({
+			search: PropTypes.object.isRequired,
+		})
+		.isRequired
+	),
 }
 
 const GitHubUserSearchResults = ({
@@ -17,30 +23,37 @@ const GitHubUserSearchResults = ({
 			value={data.search.userCount}
 		/>
 
-		{
-			data
-			.search
-			.edges
-			.map(({ node }) => (
-				node
-			))
-			.map(({
-				databaseId,
-				url,
-				...props
-			}) => (
-				<a
-					key={databaseId}
-					href={url}
-					style={{
-						color: 'inherit',
-						textDecoration: 'none',
-					}}
-				>
-					<User {...props} />
-				</a>
-			))
-		}
+		<div
+			style={{
+				display: 'flex',
+				flexWrap: 'wrap',
+			}}
+		>
+			{
+				data
+				.search
+				.edges
+				.map(({ node }) => (
+					node
+				))
+				.map(({
+					databaseId,
+					url,
+					...props
+				}) => (
+					<a
+						key={databaseId}
+						href={url}
+						style={{
+							color: 'inherit',
+							textDecoration: 'none',
+						}}
+					>
+						<User {...props} />
+					</a>
+				))
+			}
+		</div>
 	</Fragment>
 )
 

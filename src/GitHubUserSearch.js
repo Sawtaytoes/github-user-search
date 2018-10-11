@@ -24,10 +24,11 @@ const SEARCH_USERS = gql`
 						following {
 							totalCount
 						}
+						login
+						name
 						starredRepositories {
 							totalCount
 						}
-						name
 						url
 						websiteUrl
 					}

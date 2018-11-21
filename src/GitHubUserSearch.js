@@ -3,7 +3,8 @@ import gql from 'graphql-tag'
 import React from 'react'
 import { Query } from 'react-apollo'
 
-import GitHubUserSearchResults from './GitHubUserSearchResults'
+import GitHubSearchResults from './GitHubSearchResults'
+import User from './User'
 
 const SEARCH_USERS = gql`
 	query SearchUsers(
@@ -73,15 +74,44 @@ const GitHubUserSearch = ({
 				isLoading
 				? 'Loading...'
 				: (
-					<GitHubUserSearchResults
+					<GitHubSearchResults
 						data={data}
 						fetchMore={fetchMore}
-					/>
+					>
+						{
+							data
+							.search
+							.edges
+							.map(({ node }) => (
+								node
+							))
+							.map(({
+								databaseId,
+								...props
+							}) => (
+								<div
+									key={databaseId}
+									style={{
+										color: 'inherit',
+										height: '100%',
+										textDecoration: 'none',
+										width: '100%',
+									}}
+								>
+									<User {...props} />
+								</div>
+							))
+						}
+					</GitHubSearchResults>
 				)
 			)}
 		</Query>
 	)
-	: null
+	: (
+		<div>
+			Search GitHub Users
+		</div>
+	)
 )
 
 GitHubUserSearch

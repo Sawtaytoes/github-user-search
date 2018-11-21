@@ -4,7 +4,6 @@ import React, { Fragment } from 'react'
 import Count from './Count'
 import InternalLink from './InternalLink'
 import Paginator from './Paginator'
-import User from './User'
 
 const paginate = ({
 	fetchMore,
@@ -44,6 +43,7 @@ const paginate = ({
 )
 
 const propTypes = {
+	children: PropTypes.node.isRequired,
 	data: (
 		PropTypes
 		.shape({
@@ -54,7 +54,8 @@ const propTypes = {
 	fetchMore: PropTypes.func.isRequired,
 }
 
-const GitHubUserSearchResults = ({
+const GitHubSearchResults = ({
+	children,
 	data,
 	fetchMore,
 }) => (
@@ -124,35 +125,12 @@ const GitHubUserSearchResults = ({
 				padding: '20px',
 			}}
 		>
-			{
-				data
-				.search
-				.edges
-				.map(({ node }) => (
-					node
-				))
-				.map(({
-					databaseId,
-					...props
-				}) => (
-					<div
-						key={databaseId}
-						style={{
-							color: 'inherit',
-							height: '100%',
-							textDecoration: 'none',
-							width: '100%',
-						}}
-					>
-						<User {...props} />
-					</div>
-				))
-			}
+			{children}
 		</div>
 	</Fragment>
 )
 
-GitHubUserSearchResults
+GitHubSearchResults
 .propTypes = propTypes
 
-export default GitHubUserSearchResults
+export default GitHubSearchResults

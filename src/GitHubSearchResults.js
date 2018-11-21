@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { Fragment } from 'react'
+import React, { createElement, Fragment } from 'react'
 
 import Count from './Count'
 import InternalLink from './InternalLink'
@@ -43,7 +43,7 @@ const paginate = ({
 )
 
 const propTypes = {
-	children: PropTypes.node.isRequired,
+	component: PropTypes.node.isRequired,
 	data: (
 		PropTypes
 		.shape({
@@ -52,12 +52,14 @@ const propTypes = {
 		.isRequired
 	),
 	fetchMore: PropTypes.func.isRequired,
+	idName: PropTypes.string.isRequired,
 }
 
 const GitHubSearchResults = ({
-	children,
+	component,
 	data,
 	fetchMore,
+	idName,
 }) => (
 	<Fragment>
 		<Count
@@ -125,7 +127,35 @@ const GitHubSearchResults = ({
 				padding: '20px',
 			}}
 		>
-			{children}
+			{
+				data
+				.search
+				.edges
+				.map(({ node }) => (
+					node
+				))
+				.map(({
+					[idName]: id,
+					...props
+				}) => (
+					<div
+						key={id}
+						style={{
+							color: 'inherit',
+							height: '100%',
+							textDecoration: 'none',
+							width: '100%',
+						}}
+					>
+						{
+							createElement(
+								component,
+								props,
+							)
+						}
+					</div>
+				))
+			}
 		</div>
 	</Fragment>
 )

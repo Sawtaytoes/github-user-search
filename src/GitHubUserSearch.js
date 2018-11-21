@@ -75,34 +75,11 @@ const GitHubUserSearch = ({
 				? 'Loading...'
 				: (
 					<GitHubSearchResults
+						component={User}
 						data={data}
 						fetchMore={fetchMore}
-					>
-						{
-							data
-							.search
-							.edges
-							.map(({ node }) => (
-								node
-							))
-							.map(({
-								databaseId,
-								...props
-							}) => (
-								<div
-									key={databaseId}
-									style={{
-										color: 'inherit',
-										height: '100%',
-										textDecoration: 'none',
-										width: '100%',
-									}}
-								>
-									<User {...props} />
-								</div>
-							))
-						}
-					</GitHubSearchResults>
+						idName="databaseId"
+					/>
 				)
 			)}
 		</Query>

@@ -9,25 +9,22 @@ const propTypes = {
 	followers: (
 		PropTypes
 		.shape({
-			totalCount: PropTypes.number.isRequired,
+			totalCount: PropTypes.number,
 		})
-		.isRequired
 	),
 	following: (
 		PropTypes
 		.shape({
-			totalCount: PropTypes.number.isRequired,
+			totalCount: PropTypes.number,
 		})
-		.isRequired
 	),
 	login: PropTypes.string.isRequired,
 	name: PropTypes.string,
 	starredRepositories: (
 		PropTypes
 		.shape({
-			totalCount: PropTypes.number.isRequired,
+			totalCount: PropTypes.number,
 		})
-		.isRequired
 	),
 	url: PropTypes.string.isRequired,
 	websiteUrl: PropTypes.string,
@@ -115,15 +112,27 @@ const User = ({
 		<div>
 			<Count
 				name="Followers"
-				value={followers.totalCount}
+				value={
+					followers
+					? followers.totalCount
+					: 0
+				}
 			/>
 			<Count
 				name="Following"
-				value={following.totalCount}
+				value={
+					following
+					? following.totalCount
+					: 0
+				}
 			/>
 			<Count
 				name="Starred"
-				value={starredRepositories.totalCount}
+				value={
+					starredRepositories
+					? starredRepositories.totalCount
+					: 0
+				}
 			/>
 		</div>
 	</div>
